@@ -43,7 +43,6 @@ prog.parse(process.argv, {
 function run(str, opts, isWatch) {
 	opts.watch = !!isWatch;
 	opts.entries = toArray(str || opts.entry).concat(opts._);
-	console.info( str, opts, isWatch );
 	microbundle(opts)
 		.then( output => {
 			if (output!=null) process.stdout.write(output + '\n');
