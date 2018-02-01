@@ -33,6 +33,7 @@ const WATCH_OPTS = {
 };
 
 export default async function microbundle(options) {
+
 	let cwd = options.cwd = resolve(process.cwd(), options.cwd),
 		hasPackageJson = true;
 
@@ -46,6 +47,8 @@ export default async function microbundle(options) {
 		options.pkg = {};
 		hasPackageJson = false;
 	}
+
+	options.pkg.name = options.filename || options.pkg.name;
 
 	if (!options.pkg.name) {
 		options.pkg.name = basename(options.cwd);
@@ -310,7 +313,7 @@ function createConfig(options, entry, format, writeMeta) {
 			strict: options.strict===true,
 			legacy: true,
 			freeze: false,
-			sourcemap: true,
+			sourcemap: options.sourcemap == 'y',
 			treeshake: {
 				propertyReadSideEffects: false
 			},

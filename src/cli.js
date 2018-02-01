@@ -18,7 +18,9 @@ prog
 	.option('--compress', 'Compress output using UglifyJS', true)
 	.option('--strict', 'Enforce undefined global context and add "use strict"')
 	.option('--name', 'Specify name exposed in UMD builds')
-	.option('--cwd', 'Use an alternative working directory', '.');
+	.option('--cwd', 'Use an alternative working directory', '.')
+	.option('--sourcemap', 'Do not generate the sourcemap', "y")
+	.option('--file', 'Use an alternative file name, otherwise `package.name`');
 
 prog
 	.command('build [...entries]', '', { default: true })
@@ -41,6 +43,7 @@ prog.parse(process.argv, {
 function run(str, opts, isWatch) {
 	opts.watch = !!isWatch;
 	opts.entries = toArray(str || opts.entry).concat(opts._);
+	console.info( str, opts, isWatch );
 	microbundle(opts)
 		.then( output => {
 			if (output!=null) process.stdout.write(output + '\n');
