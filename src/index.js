@@ -48,7 +48,7 @@ export default async function microbundle(options) {
 		hasPackageJson = false;
 	}
 
-	options.pkg.name = options.filename || options.pkg.name;
+	options.pkg.name = options.file || options.pkg.name;
 
 	if (!options.pkg.name) {
 		options.pkg.name = basename(options.cwd);
